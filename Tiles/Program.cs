@@ -79,9 +79,9 @@ namespace Tiles
             tileField[fieldPointer++] = tileSet[1];
             tileField[fieldPointer++] = tileSet[1];
 
-            tileField[fieldPointer++] = tileSet[2];
-            tileField[fieldPointer++] = tileSet[2];
-            tileField[fieldPointer++] = tileSet[2];
+            //tileField[fieldPointer++] = tileSet[2];
+            //tileField[fieldPointer++] = tileSet[2];
+            //tileField[fieldPointer++] = tileSet[2];
             //tileField[fieldPointer++] = tileSet[2];
             //tileField[fieldPointer++] = tileSet[2];
             //tileField[fieldPointer++] = tileSet[2];
@@ -130,7 +130,39 @@ namespace Tiles
             //    }
             //}
 
-            //Check diagonal 1
+            //Check diagonal /
+            int sum = 1;
+            if (fieldPointer > tileField.Length - length)
+            {
+                Console.WriteLine("sdf");
+                int diagonalSum = 0;
+                int pointer = tileField.Length - length;
+                for (int i = 0; i < height; i++)
+                {
+                    diagonalSum += tileField[pointer].Down;
+                    pointer++;
+                    diagonalSum += tileField[pointer].Up;
+                    pointer -= (length - 1);
+                }
+                if (diagonalSum != sum)
+                    return false;
+            }
+
+            //Check diagonal \
+            if (fieldPointer == tileField.Length)
+            {
+                int diagonalSum = 0;
+                int pointer = tileField.Length-1;
+                for (int i = 0; i < height; i++)
+                {
+                    diagonalSum += tileField[pointer].Down;
+                    pointer--;
+                    diagonalSum += tileField[pointer].Up;
+                    pointer -= (length + 1);
+                }
+                if (diagonalSum != sum)
+                    return false;
+            }
 
 
             return true;
