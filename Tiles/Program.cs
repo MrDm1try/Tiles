@@ -39,7 +39,7 @@ namespace Tiles
                 return false;
 
             return Up == other.Up && Down == other.Down;
-            
+
         }
     }
 
@@ -64,74 +64,68 @@ namespace Tiles
             this.height = height;
             this.length = length;
             tileField = new Tile[height * length];
-
-            tileField[fieldPointer++] = tileSet[0];
-            tileField[fieldPointer++] = tileSet[0];
-            tileField[fieldPointer++] = tileSet[0];
-            tileField[fieldPointer++] = tileSet[0];
-            tileField[fieldPointer++] = tileSet[0];
-            tileField[fieldPointer++] = tileSet[0];
-
-            tileField[fieldPointer++] = tileSet[1];
-            tileField[fieldPointer++] = tileSet[1];
-            tileField[fieldPointer++] = tileSet[1];
-            tileField[fieldPointer++] = tileSet[1];
-            tileField[fieldPointer++] = tileSet[1];
-            tileField[fieldPointer++] = tileSet[1];
-
-            //tileField[fieldPointer++] = tileSet[2];
-            //tileField[fieldPointer++] = tileSet[2];
-            //tileField[fieldPointer++] = tileSet[2];
-            //tileField[fieldPointer++] = tileSet[2];
-            //tileField[fieldPointer++] = tileSet[2];
-            //tileField[fieldPointer++] = tileSet[2];
-
-
         }
 
-        public bool Check()
+        public void Solve()
         {
-            ////Check horizontal sums
-            //int horizontNumber = fieldPointer / length;
-            //Console.WriteLine(horizontNumber);
-            //int sum = -1;
-            //for (int i = 0; i < horizontNumber; i++)
-            //{
-            //    int sumUp = 0;
-            //    int sumDown = 0;
-            //    for (int j = i * length; j < ((i + 1) * length); j++)
-            //    {
-            //        sumUp += tileField[j].Up;
-            //        sumDown += tileField[j].Down;
-            //    }
-            //    if (sumUp == sumDown)
-            //    {
-            //        if (sum == -1)
-            //            sum = sumUp;
-            //        else if (sum != sumUp)
-            //            return false;
-            //    }
-            //    else
-            //        return false;
-            //}
+            if (fieldPointer >= tileField.Length)
+                ToString();
+            else
+            {
+                for (int i = 0; i < tileSet.Length; i++)
+                {
+                    if (!Contains(tileSet[i]))
+                    {
+                        Put(tileSet[i]);
+                        if (Check())
+                            Solve();
+                        Take();
+                    }
+                }
+            }
+        }
+
+        private bool Check()
+        {
+            //Check horizontal sums
+            int horizontNumber = fieldPointer / length;
+            int sum = -1;
+            for (int i = 0; i < horizontNumber; i++)
+            {
+                int sumUp = 0;
+                int sumDown = 0;
+                for (int j = i * length; j < ((i + 1) * length); j++)
+                {
+                    sumUp += tileField[j].Up;
+                    sumDown += tileField[j].Down;
+                }
+                if (sumUp == sumDown)
+                {
+                    if (sum == -1)
+                        sum = sumUp;
+                    else if (sum != sumUp)
+                        return false;
+                }
+                else
+                    return false;
+            }
 
             //Check vertical sums
-            //if (fieldPointer > tileField.Length - length)
-            //{
-            //    for (int i = 0; i < fieldPointer - (tileField.Length - length); i++)
-            //    {
-            //        int sumVert = 0;
-            //        for (int j = i; j < tileField.Length; j += length)
-            //        {
-            //            sumVert += tileField[j].Up + tileField[j].Down;
-            //        }
-            //        if (sumVert != sum)
-            //            return false;
-            //    }
-            //}
+            if (fieldPointer > tileField.Length - length)
+            {
+                for (int i = 0; i < fieldPointer - (tileField.Length - length); i++)
+                {
+                    int sumVert = 0;
+                    for (int j = i; j < tileField.Length; j += length)
+                    {
+                        sumVert += tileField[j].Up + tileField[j].Down;
+                    }
+                    if (sumVert != sum)
+                        return false;
+                }
+            }
 
             //Check diagonal /
-            int sum = 1;
             if (fieldPointer > tileField.Length - length)
             {
                 Console.WriteLine("sdf");
@@ -152,7 +146,7 @@ namespace Tiles
             if (fieldPointer == tileField.Length)
             {
                 int diagonalSum = 0;
-                int pointer = tileField.Length-1;
+                int pointer = tileField.Length - 1;
                 for (int i = 0; i < height; i++)
                 {
                     diagonalSum += tileField[pointer].Down;
@@ -174,6 +168,16 @@ namespace Tiles
                 if (tileField[i].Equals(tile))
                     return true;
             return false;
+        }
+
+        public void Put(Tile tile)
+        {
+            tileField[fieldPointer++] = tile;
+        }
+
+        public void Take()
+        {
+            tileField[--fieldPointer] = null;
         }
 
         override
@@ -203,8 +207,7 @@ namespace Tiles
         {
             TileField t = new TileField(3, 6);
 
-            Console.WriteLine(t.ToString());
-            Console.WriteLine(t.Check());
+            t.Solve();
 
             Console.ReadKey();
         }
