@@ -81,10 +81,10 @@ namespace Tiles
 
             tileField[fieldPointer++] = tileSet[2];
             tileField[fieldPointer++] = tileSet[2];
-            tileField[fieldPointer++] = tileSet[2];
-            tileField[fieldPointer++] = tileSet[2];
-            tileField[fieldPointer++] = tileSet[2];
-            tileField[fieldPointer++] = tileSet[2];
+            tileField[fieldPointer++] = tileSet[3];
+            //tileField[fieldPointer++] = tileSet[2];
+            //tileField[fieldPointer++] = tileSet[2];
+            //tileField[fieldPointer++] = tileSet[2];
 
 
         }
@@ -128,7 +128,7 @@ namespace Tiles
                 for (int i = 0; i < fieldPointer - (tileField.Length - length); i++)
                 {
                     int sumVert = 0;
-                    for (int j = i; j < length * height; j += length)
+                    for (int j = i; j < tileField.Length; j += length)
                     {
                         sumVert += tileField[j].Up + tileField[j].Down;
                     }
