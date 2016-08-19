@@ -1,0 +1,6 @@
+c:\users\dmr\documents\visual studio 2015\Projects\Tiles\Tiles\bin\Debug\Tiles.exe.config
+c:\users\dmr\documents\visual studio 2015\Projects\Tiles\Tiles\bin\Debug\Tiles.exe
+c:\users\dmr\documents\visual studio 2015\Projects\Tiles\Tiles\bin\Debug\Tiles.pdb
+c:\users\dmr\documents\visual studio 2015\Projects\Tiles\Tiles\obj\Debug\Tiles.csprojResolveAssemblyReference.cache
+c:\users\dmr\documents\visual studio 2015\Projects\Tiles\Tiles\obj\Debug\Tiles.exe
+c:\users\dmr\documents\visual studio 2015\Projects\Tiles\Tiles\obj\Debug\Tiles.pdb
