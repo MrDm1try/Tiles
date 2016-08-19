@@ -81,7 +81,7 @@ namespace Tiles
 
             tileField[fieldPointer++] = tileSet[2];
             tileField[fieldPointer++] = tileSet[2];
-            tileField[fieldPointer++] = tileSet[3];
+            tileField[fieldPointer++] = tileSet[2];
             //tileField[fieldPointer++] = tileSet[2];
             //tileField[fieldPointer++] = tileSet[2];
             //tileField[fieldPointer++] = tileSet[2];
@@ -91,12 +91,6 @@ namespace Tiles
 
         public bool Check()
         {
-            ////Check repeating tiles
-            //for (int i = 0; i < fieldPointer - 1; i++)
-            //    for (int j = i + 1; j < fieldPointer; j++)
-            //        if (tileField[i].Equals(tileField[j]))
-            //            return false;
-
             ////Check horizontal sums
             //int horizontNumber = fieldPointer / length;
             //Console.WriteLine(horizontNumber);
@@ -121,23 +115,33 @@ namespace Tiles
             //        return false;
             //}
 
-            int sum = 3; //Testing purpose
-            //Check vertical sums - not ready
-            if (fieldPointer > tileField.Length - length)
-            {
-                for (int i = 0; i < fieldPointer - (tileField.Length - length); i++)
-                {
-                    int sumVert = 0;
-                    for (int j = i; j < tileField.Length; j += length)
-                    {
-                        sumVert += tileField[j].Up + tileField[j].Down;
-                    }
-                    if (sumVert != sum)
-                        return false;
-                }
-            }
+            //Check vertical sums
+            //if (fieldPointer > tileField.Length - length)
+            //{
+            //    for (int i = 0; i < fieldPointer - (tileField.Length - length); i++)
+            //    {
+            //        int sumVert = 0;
+            //        for (int j = i; j < tileField.Length; j += length)
+            //        {
+            //            sumVert += tileField[j].Up + tileField[j].Down;
+            //        }
+            //        if (sumVert != sum)
+            //            return false;
+            //    }
+            //}
+
+            //Check diagonal 1
+
 
             return true;
+        }
+
+        private bool Contains(Tile tile)
+        {
+            for (int i = 0; i < fieldPointer; i++)
+                if (tileField[i].Equals(tile))
+                    return true;
+            return false;
         }
 
         override
