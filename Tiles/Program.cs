@@ -17,11 +17,14 @@ namespace Tiles
             Down = down;
         }
 
-        public void Turn()
+        public bool Turn()
         {
+            if (Up == Down)
+                return false;
             byte temp = Up;
             Up = Down;
             Down = temp;
+            return true;
         }
 
         override
@@ -78,6 +81,8 @@ namespace Tiles
                     {
                         Put(tileSet[i]);
                         if (Check())
+                            Solve();
+                        else if (TurnLast() && Check())
                             Solve();
                         Take();
                     }
@@ -173,11 +178,18 @@ namespace Tiles
         public void Put(Tile tile)
         {
             tileField[fieldPointer++] = tile;
+            Console.WriteLine(ToString());
+            Console.ReadLine();
         }
 
         public void Take()
         {
             tileField[--fieldPointer] = null;
+        }
+
+        public bool TurnLast()
+        {
+            return tileField[fieldPointer - 1].Turn();
         }
 
         override
